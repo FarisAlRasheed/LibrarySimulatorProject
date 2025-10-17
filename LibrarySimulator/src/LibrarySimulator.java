@@ -1,3 +1,10 @@
+/*
+Team members:
+1-Fahad Aldoghither
+2-Faris Alrasheed
+3-Abdulrahman Alwalan
+ */
+
 import java.util.Scanner;
 
 public class LibrarySimulator {
@@ -5,53 +12,66 @@ public class LibrarySimulator {
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
 
+		//Booleans used to manage menus state
 		boolean programMenuON = true; // turn on program
 		boolean userMenuOn = true; // turn on member menu
-		boolean userLogin = true;
+		boolean userLogin = true; // turn on member login menu
 		boolean adminMenuOn = true; // turn on admin menu
 
+		//first user vars
 		String userName_1 = "Faris";
 		int userId_1 = 1;
-		int userCheckedOut_1 = 0;
+		int userBorrowed_1 = 0;
 		int userReturned_1 = 0;
 
+		//second user vars
 		String userName_2 = "Fahad";
 		int userId_2 = 2;
-		int userCheckedOut_2 = 0;
+		int userBorrowed_2 = 0;
 		int userReturned_2 = 0;
 
+		//third user vars
 		String userName_3 = "Abdulrahman";
 		int userId_3 = 3;
-		int userCheckedOut_3 = 0;
+		int userBorrowed_3 = 0;
 		int userReturned_3 = 0;
 
+		//shared vars for users each session
 		String userName = "";
-		int checkedOut = 0;
+		int userID = 0;
+		int Borrowed = 0;
 		int returned = 0;
+		double Balance = 0;
 
-		System.out.println("Welcome to the LibrarySimulator!");
+		//vars for admin stats
+		int totBorrow = 0;
+		int totReturn = 0;
+		double totBalance = 0;
 
+		//welcome message
+		System.out.println("\nWelcome to the LibrarySimulator!");
+
+		//main program menu
 		do {
 			System.out.println("=========================================");
 			System.out.println("Main Menu:");
 			System.out.println("1. Login as Member");
 			System.out.println("2. Login as Administrator");
 			System.out.println("3. Exit Program");
-			System.out.print("Choose an option: ");
+			System.out.print("\nChoose an option: ");
 			String Choice = input.next();
 
 			switch (Choice) {
 			case "1": // Member Login
-
-				do {
-
-					System.out.println(
-							"=========================================\nEnter Id member to log in, or 4 to exit: ");
-					System.out.println("1. Faris");
-					System.out.println("2. Fahad");
-					System.out.println("3. Abdulrahman");
+				userLogin =true;
+				do { //login 
+					
+					System.out.println("\n=========================================\nEnter the member ID to log in, or 4 to exit: ");
+					System.out.println("(ID: 1) Faris");
+					System.out.println("(ID: 2) Fahad");
+					System.out.println("(ID: 3) Abdulrahman");
 					System.out.println("4. Exit Program");
-					System.out.print("Choose an option: ");
+					System.out.print("\nChoose an option: ");
 
 					String userId = input.next();
 
@@ -60,20 +80,23 @@ public class LibrarySimulator {
 
 					case "1": // choice Faris
 						userName = userName_1;
-						checkedOut = userCheckedOut_1;
+						Borrowed = userBorrowed_1;
 						returned = userReturned_1;
+						userID = userId_1;
 						userLogin = false;
 						break;
 					case "2": // choice Fahad
 						userName = userName_2;
-						checkedOut = userCheckedOut_2;
+						Borrowed = userBorrowed_2;
 						returned = userReturned_2;
+						userID = userId_2;
 						userLogin = false;
 						break;
 					case "3": // choice Abdulrahman
 						userName = userName_3;
-						checkedOut = userCheckedOut_3;
+						Borrowed = userBorrowed_3;
 						returned = userReturned_3;
+						userID = userId_3;
 						userLogin = false;
 						break;
 					case "4":
@@ -86,30 +109,72 @@ public class LibrarySimulator {
 
 					}
 				} while (userLogin);
-
-				do {
-					System.out.println("\nWelcome " + userName + "!");
-					System.out.println("=========================================");
-
-					System.out.println("Member Operations Menu:");
-					System.out.println("1. Check Out a Book");
-					System.out.println("2. Return a Book");
-					System.out.println("3. ..............");
-					System.out.println("4. Exit to Main Menu");
-					System.out.println("5. Exit Program");
-					System.out.print("Choose an option: ");
+				userMenuOn=true;
+				do { //user menu
+					System.out.println("\nWelcome " + userName + "!"
+					+"\n========================================="
+					+"\nTotal Fees: " + Balance + "\t\t" + "Borrowed Books: " + Borrowed + "\\5"
+					+"\n=========================================");	
+					System.out.println("Member Operations Menu:"
+					+"\n1. Borrow a Book"
+					+"\n2. Return a Book"
+					+"\n3. Session Activity Summary"
+					+"\n4. Exit to Main Menu"
+					+"\n5. Exit Program");
+					System.out.print("\nChoose an option: ");
 					String choice = input.next();
 
 					switch (choice) {
 
 					case "1":
-
+						if(Borrowed < 5){
+							Borrowed++;
+							totBorrow++;
+							Balance -= 0.5;
+							totBalance += 0.5;
+						}
+						else{
+							System.err.println("\n ## You can't borrow more than 5 books at once! ## ");
+						}
+						break;
+						
 					case "2":
+						if(Borrowed <= 5 && Borrowed != 0){
+							//for user stats and vars
+							Borrowed--;
+							returned++;
 
+							//for admin stats
+							totBorrow--;
+							totReturn++;
+						}
+						else{
+							System.out.println("\n## You don't have books to return! ##");
+						}
+						break;
 					case "3":
+						System.out.println("\nSession Activity Summary");
+						System.out.println("===\nBooks Borrowed: " + Borrowed);
+						System.out.println("Books Returned: " + returned);
+						System.out.println("Total Fees: " + Balance +"\n===");
+
+						break;
 
 					case "4": // Exit to main menu
+						//to save users data
+						if(userID == 1){
+							userBorrowed_1 = Borrowed;
+						}
+						else if(userID == 2){
+							userBorrowed_2 = Borrowed;
+						}
+						else if(userID == 3){
+							userBorrowed_3 = Borrowed;
+						}
+						Balance =0;
+						returned = 0;
 
+						// to exit
 						userMenuOn = false;
 						break;
 
@@ -126,7 +191,7 @@ public class LibrarySimulator {
 
 				break; // end case 1 for member menu
 
-			case "2":
+			case "2": // Admin login
 				do {
 
 					System.out.println("*****************************************"
@@ -192,15 +257,17 @@ public class LibrarySimulator {
 			case "3":// Exit to program
 
 				programMenuON = false;
+				System.out.println("Thank you for using the LibrarySimulator!");
+
 				break;
 
-			default:
+			default: //invalid option
 				System.err.println("Invalid option, Please try again.");
 				break;
 
 			} // end switch for main menu
 
-		} while (programMenuON); // end do for hole program
+		} while (programMenuON); // end do for whole program
 
 	}
 
