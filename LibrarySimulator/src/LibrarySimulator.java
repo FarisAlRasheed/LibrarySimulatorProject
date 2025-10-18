@@ -3,7 +3,7 @@ Team members:
 Name 							Uni ID
 1-Fahad Aldeghaither			446102355
 2-Faris Alrasheed  				446101056
-3-Abdulrahman Alwalan
+3-Abdulrahman Alwaalan			446107578
  */
 
 import java.util.Scanner;
@@ -64,7 +64,7 @@ public class LibrarySimulator {
 
 			switch (Choice) {
 			case "1": // Member Login
-				userLogin =true;
+				userLogin = true;
 				do { //login 
 					
 					System.out.println("\n=========================================\nEnter the member ID to log in, or 4 to exit: ");
@@ -110,7 +110,7 @@ public class LibrarySimulator {
 
 					}
 				} while (userLogin);
-				userMenuOn=true;
+				userMenuOn = true;
 				do { //user menu
 					System.out.println("\nWelcome " + userName + "!"
 					+"\n========================================="
@@ -172,7 +172,7 @@ public class LibrarySimulator {
 						else if(userID == 3){
 							userBorrowed_3 = Borrowed;
 						}
-						Balance =0;
+						Balance = 0;
 						returned = 0;
 
 						// to exit
@@ -200,35 +200,50 @@ public class LibrarySimulator {
 					String password = input.next();
 
 					if (password.equals("admin")) {
-							
+						adminMenuOn = true;
+						
 						System.out.println("Welcome admin!");
 
 						do {
 							System.out.println("=========================================");
 
 							System.out.println("admin Operations Menu:");
-							System.out.println("1. .........");
-							System.out.println("2. .........");
-							System.out.println("3. ..............");
-							System.out.println("4. Exit to Main Menu");
-							System.out.println("5. Exit Program");
+							System.out.println("1. View Total Revenue");
+							System.out.println("2. Most Frequent Operations");	
+							System.out.println("3. Exit to Main Menu");
+							System.out.println("4. Exit Program");
 							System.out.print("Choose an option: ");
 							String choice = input.next();
 
 							switch (choice) {
 
 							case "1":
+								System.out.println("\nTotal Revenue");
+								System.out.println("===");
+								System.out.println("Total fees: " + totBalance);
+								System.out.println("===");
+								break;
 
 							case "2":
+								System.out.println("\nMost Frequent Operations");
+								System.out.println("===");
+								if(totBorrow == totReturn){
+									System.out.println("borrow and return opperations are the same");
+								}
+								else if( totBorrow > totReturn){
+									System.out.println("borrow opperations are more frequent");
+								}
+								else{
+									System.out.println("return opperations are more frequent");
+								}
+								System.out.println("===");
+								break;
 
-							case "3":
-
-							case "4": // Exit to main menu
-
+							case "3": // Exit to main menu
 								adminMenuOn = false;
 								break;
 
-							case "5": // Exit Program
+							case "4": // Exit Program
 								System.out.println("Thank you for using the LibrarySimulator!");
 								return;
 
