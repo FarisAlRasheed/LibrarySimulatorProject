@@ -131,7 +131,7 @@ public class LibrarySimulator {
 						if(Borrowed < 5){
 							Borrowed++;
 							totBorrow++;
-							Balance -= 0.5;
+							Balance += 0.5;
 							totBalance += 0.5;
 						}
 						else{
@@ -157,7 +157,7 @@ public class LibrarySimulator {
 						System.out.println("\nSession Activity Summary");
 						System.out.println("===\nBooks Borrowed: " + Borrowed);
 						System.out.println("Books Returned: " + returned);
-						System.out.println("Total Fees: " + Balance +"\n===");
+						System.out.printf("Total Fees: %.2f\n===\n", Balance);
 
 						break;
 
@@ -218,7 +218,7 @@ public class LibrarySimulator {
 							switch (choice) {
 
 							case "1":
-								System.out.println("\nTotal Revenue");
+								System.out.printf("\nTotal Revenue Collected: %.2f credits\n", totBalance);
 								System.out.println("===");
 								System.out.println("Total fees: " + totBalance);
 								System.out.println("===");
