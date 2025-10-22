@@ -112,9 +112,11 @@ public class LibrarySimulator {
 				} while (userLogin);
 				userMenuOn = true;
 				do { //user menu
-					System.out.println("\nWelcome " + userName + "!"
-					+"\n========================================="
-					+"\nTotal Fees: " + Balance + "\t\t" + "Borrowed Books: " + Borrowed + "\\5"
+					System.out.println("\nWelcome " + userName + "!");
+					System.out.println("=========================================");
+					System.out.print("Total Fees: ");
+					System.out.printf("%.2f", Balance);
+					System.out.println("\t\t" + "Borrowed Books: " + Borrowed + "\\5"
 					+"\n=========================================");	
 					System.out.println("Member Operations Menu:"
 					+"\n1. Borrow a Book"
@@ -146,11 +148,10 @@ public class LibrarySimulator {
 							returned++;
 
 							//for admin stats
-							totBorrow--;
 							totReturn++;
 						}
 						else{
-							System.out.println("\n## You don't have books to return! ##");
+							System.err.println("\n## You don't have books to return! ##");
 						}
 						break;
 					case "3":
@@ -202,9 +203,12 @@ public class LibrarySimulator {
 					if (password.equals("admin")) {
 						adminMenuOn = true;
 						
-						System.out.println("Welcome admin!");
+						System.out.println("\nWelcome admin!");
 
 						do {
+							System.out.println("=========================================");
+							System.out.printf("\t Total Revenue Collected: %.2f credits\n"
+									+ "Total Borrowed Books: " + totBorrow + "\t\t" + "Total Returned: " + totReturn + "\n", totBalance);
 							System.out.println("=========================================");
 
 							System.out.println("admin Operations Menu:");
@@ -218,9 +222,8 @@ public class LibrarySimulator {
 							switch (choice) {
 
 							case "1":
-								System.out.printf("\nTotal Revenue Collected: %.2f credits\n", totBalance);
 								System.out.println("===");
-								System.out.println("Total fees: " + totBalance);
+								System.out.printf("Total Revenue Collected: %.2f credits\n", totBalance);
 								System.out.println("===");
 								break;
 
