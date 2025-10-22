@@ -197,10 +197,10 @@ public class LibrarySimulator {
 				do {
 
 					System.out.println("*****************************************"
-							+ "\nEnter admin password to login, or 0 to exit to Main Menu");
+							+ "\nEnter admin password to login, or 0 to exit to Main Menu"); //passowrd is : admin
 					String password = input.next();
 
-					if (password.equals("admin")) {
+					if (password.equals("admin")) {//Admin menu
 						adminMenuOn = true;
 						
 						System.out.println("\nWelcome admin!");
@@ -211,7 +211,7 @@ public class LibrarySimulator {
 									+ "Total Borrowed Books: " + totBorrow + "\t\t" + "Total Returned: " + totReturn + "\n", totBalance);
 							System.out.println("=========================================");
 
-							System.out.println("admin Operations Menu:");
+							System.out.println("Admin Operations Menu:");
 							System.out.println("1. View Total Revenue");
 							System.out.println("2. Most Frequent Operations");	
 							System.out.println("3. Exit to Main Menu");
