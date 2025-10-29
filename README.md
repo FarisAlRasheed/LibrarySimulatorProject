@@ -1,8 +1,8 @@
 # LibrarySimulatorProject
-this is a CSC111 project I created with my friends Abdulrahman @dahoom-11 And Fahad @FSD75
+This is a CSC111 project I created with my teammates Abdulrahman @dahoom-11 and Fahad @FSD75
 
 Main Idea:
-simulator program for borrowing books and return it by user account and show stats by admin account
+A simulator program for borrowing books and returning them by user account and shows stats by admin account
 
-language and program build:
-the program made by Java language and it is run on the console there is no GUI
+Language and program build:
+The program is made in Java language and it is run on the console there is no GUI
