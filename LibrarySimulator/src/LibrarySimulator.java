@@ -135,7 +135,7 @@ public class LibrarySimulator {
 							totBalance += 0.5;
 						}
 						else{
-							System.err.println("\n ## You can't borrow more than 5 books at once! ## ");
+							System.out.println("\n ## You can't borrow more than 5 books at once! ## ");
 						}
 						break;
 						
