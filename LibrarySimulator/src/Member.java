@@ -68,7 +68,6 @@ public class Member {
 		if(canReturn()) {
 			borrowedCount--;
 			numReturns++;
-			totalBorrows--;
 			totalReturns++;
 			return true;
 		}
@@ -87,9 +86,9 @@ public class Member {
 	}
 	
 	public void reset() {
-		sessionFees = 0;
-		numReturns = 0;
-		numBorrows = 0;
+		sessionFees=0;
+		numReturns=0;
+		numBorrows=0;
 	}
 	
 	public String getName() {
