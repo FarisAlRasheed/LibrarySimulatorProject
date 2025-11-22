@@ -1,9 +1,12 @@
 /*
-Team members:
-Name 							Uni ID
-1-Fahad Aldeghaither			446102355
-2-Faris Alrasheed  				446101056
-3-Abdulrahman Alwaalan			446107578
+	Team members:
+	Name 							Uni ID
+	1-Fahad Aldeghaither			446102355
+	2-Faris Alrasheed  				446101056
+	3-Abdulrahman Alwaalan			446107578
+
+
+   GitHub repositery URL: https://github.com/FarisAlRasheed/LibrarySimulatorProject/tree/Member
  */
 
 import java.util.Scanner;
@@ -11,6 +14,7 @@ import java.util.Scanner;
 public class LibrarySimulator {
 
 	public static void main(String[] args) {
+		//Scanner Object
 		Scanner input = new Scanner(System.in);
 
 		//Booleans used to manage menus state
@@ -19,38 +23,20 @@ public class LibrarySimulator {
 		boolean userLogin = true; // turn on member login menu
 		boolean adminMenuOn = true; // turn on admin menu
 
-		//first user vars
-		String userName_1 = "Faris";
-		int userId_1 = 1;
-		int userBorrowed_1 = 0;
-		int userReturned_1 = 0;
+		//first user instantiate
+		Member m1 = new Member(1, "Faris", 0);
 
-		//second user vars
-		String userName_2 = "Fahad";
-		int userId_2 = 2;
-		int userBorrowed_2 = 0;
-		int userReturned_2 = 0;
+		//second user instantiate
+		Member m2 = new Member(2, "Fahad", 0);
 
-		//third user vars
-		String userName_3 = "Abdulrahman";
-		int userId_3 = 3;
-		int userBorrowed_3 = 0;
-		int userReturned_3 = 0;
-
-		//shared vars for users each session
-		String userName = "";
-		int userID = 0;
-		int Borrowed = 0;
-		int returned = 0;
-		double Balance = 0;
-
-		//vars for admin stats
-		int totBorrow = 0;
-		int totReturn = 0;
-		double totBalance = 0;
+		//third user instantiate
+		Member m3 = new Member(3, "Abdulrahman", 0);
+		
+		//selected member (each session)
+		Member cM = null;
 
 		//welcome message
-		System.out.println("\nWelcome to the LibrarySimulator!");
+		System.out.println("Welcome to the LibrarySimulator!");
 
 		//main program menu
 		do {
@@ -67,54 +53,46 @@ public class LibrarySimulator {
 				userLogin = true;
 				do { //login 
 					
-					System.out.println("\n=========================================\nEnter the member ID to log in, or 4 to exit: ");
+					System.out.println("\n=========================================");
+					System.out.println("Enter the member ID to log in, or 4 to exit:");
 					System.out.println("(ID: 1) Faris");
 					System.out.println("(ID: 2) Fahad");
 					System.out.println("(ID: 3) Abdulrahman");
 					System.out.println("4. Exit Program");
 					System.out.print("\nChoose an option: ");
-
 					String userId = input.next();
 
 					switch (userId) // select which user
 					{
 
 					case "1": // choice Faris
-						userName = userName_1;
-						Borrowed = userBorrowed_1;
-						returned = userReturned_1;
-						userID = userId_1;
+						cM = m1;
 						userLogin = false;
 						break;
 					case "2": // choice Fahad
-						userName = userName_2;
-						Borrowed = userBorrowed_2;
-						returned = userReturned_2;
-						userID = userId_2;
+						cM = m2;
 						userLogin = false;
 						break;
 					case "3": // choice Abdulrahman
-						userName = userName_3;
-						Borrowed = userBorrowed_3;
-						returned = userReturned_3;
-						userID = userId_3;
+						cM = m3;
 						userLogin = false;
 						break;
 					case "4":
-						System.out.println("Exiting the program, Thank you ");
+						System.out.println("Exiting the program, Thank you!");
 						return; // Exit the program
 
 					default:
-						System.err.println("Invalid member ID. Please try again.");
+						System.err.println("Invalid member ID! Please try again.");
 						continue;
 
 					}
 				} while (userLogin);
+				
 				userMenuOn = true;
 				do { //user menu
-					System.out.println("\nWelcome " + userName + "!"
+					System.out.println("\nWelcome " + cM.getName() + "!"
 					+"\n========================================="
-					+"\nTotal Fees: " + Balance + "\t\t" + "Borrowed Books: " + Borrowed + "\\5"
+					+"\nTotal Fees: " + cM.getSessionFees() + "\t\t" + "Borrowed Books: " + cM.getBorrowed() + "\\5"
 					+"\n=========================================");	
 					System.out.println("Member Operations Menu:"
 					+"\n1. Borrow a Book"
@@ -128,54 +106,30 @@ public class LibrarySimulator {
 					switch (choice) {
 
 					case "1":
-						if(Borrowed < 5){
-							Borrowed++;
-							totBorrow++;
-							Balance += 0.5;
-							totBalance += 0.5;
+						if(cM.borrowOne()) {
+							System.out.println("\nBorrow Done!");
 						}
-						else{
-							System.out.println("\n ## You can't borrow more than 5 books at once! ## ");
+						else {
+							System.err.println("Borrow Failed!");
 						}
 						break;
 						
 					case "2":
-						if(Borrowed <= 5 && Borrowed != 0){
-							//for user stats and vars
-							Borrowed--;
-							returned++;
+						if(cM.returnOne()) {
+							System.out.println("\nReturn Done!");
+						}
+						else {
+							System.err.println("Return Failed!");
+						}
 
-							//for admin stats
-							totBorrow--;
-							totReturn++;
-						}
-						else{
-							System.out.println("\n## You don't have books to return! ##");
-						}
 						break;
 					case "3":
-						System.out.println("\nSession Activity Summary");
-						System.out.println("===\nBooks Borrowed: " + Borrowed);
-						System.out.println("Books Returned: " + returned);
-						System.out.printf("Total Fees: %.2f\n===\n", Balance);
-
+						cM.displayStatistics();
 						break;
 
 					case "4": // Exit to main menu
-						//to save users data
-						if(userID == 1){
-							userBorrowed_1 = Borrowed;
-						}
-						else if(userID == 2){
-							userBorrowed_2 = Borrowed;
-						}
-						else if(userID == 3){
-							userBorrowed_3 = Borrowed;
-						}
-						Balance = 0;
-						returned = 0;
-
-						// to exit
+						cM.reset(); //reset user stats
+						cM = null;
 						userMenuOn = false;
 						break;
 
@@ -183,7 +137,7 @@ public class LibrarySimulator {
 						System.out.println("Thank you for using the LibrarySimulator!");
 						return;
 
-					default:
+					default://invalid option
 						System.err.println("Invalid option, Please try again.");
 						break;
 
@@ -199,14 +153,13 @@ public class LibrarySimulator {
 							+ "\nEnter admin password to login, or 0 to exit to Main Menu");
 					String password = input.next();
 
-					if (password.equals("admin")) {
+					if (password.equals("admin")) { //hint: password = admin :)
 						adminMenuOn = true;
 						
 						System.out.println("Welcome admin!");
 
 						do {
 							System.out.println("=========================================");
-
 							System.out.println("admin Operations Menu:");
 							System.out.println("1. View Total Revenue");
 							System.out.println("2. Most Frequent Operations");	
@@ -218,25 +171,11 @@ public class LibrarySimulator {
 							switch (choice) {
 
 							case "1":
-								System.out.printf("\nTotal Revenue Collected: %.2f credits\n", totBalance);
-								System.out.println("===");
-								System.out.println("Total fees: " + totBalance);
-								System.out.println("===");
+								System.out.printf("\nTotal Revenue Collected: %.2f credits\n", Member.totalRevenue);
 								break;
 
 							case "2":
-								System.out.println("\nMost Frequent Operations");
-								System.out.println("===");
-								if(totBorrow == totReturn){
-									System.out.println("borrow and return opperations are the same");
-								}
-								else if( totBorrow > totReturn){
-									System.out.println("borrow opperations are more frequent");
-								}
-								else{
-									System.out.println("return opperations are more frequent");
-								}
-								System.out.println("===");
+								Member.frequentOperation();
 								break;
 
 							case "3": // Exit to main menu
