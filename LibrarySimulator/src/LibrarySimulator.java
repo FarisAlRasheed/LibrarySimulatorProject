@@ -109,19 +109,12 @@ public class LibrarySimulator {
 						if(cM.borrowOne()) {
 							System.out.println("\nBorrow Done!");
 						}
-						else {
-							System.err.println("Borrow Failed!");
-						}
 						break;
 						
 					case "2":
 						if(cM.returnOne()) {
 							System.out.println("\nReturn Done!");
 						}
-						else {
-							System.err.println("Return Failed!");
-						}
-
 						break;
 					case "3":
 						cM.displayStatistics();
